@@ -71,7 +71,7 @@ workflows:
             - checkout
       - build:
           requires:
-            - prepare
+            - dependencies
       - format:
           requires:
-            - prepare
+            - dependencies
