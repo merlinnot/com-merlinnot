@@ -1,0 +1,28 @@
+html {
+  background: #050505;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Roboto', sans-serif;
+
+  > div#background-image-container {
+    position: fixed;
+    top: 0; 
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    amp-img img {
+      object-fit: contain;
+      object-position: left bottom;
+    }
+
+    noscript > img {
+      max-width: 100%;
+      max-height: 100%;
+      position: absolute;
+      bottom: 0;
+    }
+  }
+}
