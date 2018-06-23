@@ -1,0 +1,24 @@
+div(id="background-image-container")
+  amp-img(
+    alt="Face"
+    height="2384"
+    layout="fill"
+    src="images/face-1120px.webp"
+    srcset=images.face.webp.srcset
+    width="1120"
+  )
+    amp-img(
+      alt="Face"
+      fallback
+      height="2384"
+      layout="fill"
+      src="images/face-1120px.jpg"
+      srcset=images.face.jpg.srcset
+      width="1120"
+    )
+      noscript
+        img(
+          alt="Face"
+          src="images/face-1120px.jpg"
+          srcset=images.face.jpg.srcset
+        )

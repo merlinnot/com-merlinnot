@@ -1,0 +1,38 @@
+@import 'constants';
+@import 'sizing';
+
+body {
+  > div#background-image-container {
+    @extend %fit-container;
+    position: fixed;
+
+    amp-img {
+      &:not(.amp-notsupported) {
+        opacity: 0;
+      }
+
+      img {
+        object-fit: contain;
+        object-position: left bottom;
+      }
+    }
+
+    noscript > img {
+      bottom: 0;
+      left: 0;
+      max-height: 100%;
+      max-width: 100%;
+      position: absolute;
+    }
+
+    div.amp-active {
+      @extend %fit-container;
+      background-color: $almost-black;
+      transform: none;
+
+      > div {
+        display: none;
+      }
+    }
+  }
+}

@@ -146,13 +146,13 @@ gulp.task('build:images', () =>
 
 gulp.task('build:dev', () => {
   const htmlStream = gulp
-    .src('src/index.pug')
+    .src('src/templates/index.pug')
     .pipe(plumber())
     .pipe(pug(PUG_CONFIGURATION))
     .pipe(plumber.stop());
 
   const stylesStream = gulp
-    .src('src/index.scss')
+    .src('src/styles/index.scss')
     .pipe(plumber())
     .pipe(sass())
     .pipe(plumber.stop());
@@ -164,15 +164,13 @@ gulp.task('build:dev', () => {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('build:dev:reload', gulp.series('build:dev'), () => {
-  browserSyncInstance.reload();
-});
-
 gulp.task('build:production', () => {
-  const htmlStream = gulp.src('src/index.pug').pipe(pug(PUG_CONFIGURATION));
+  const htmlStream = gulp
+    .src('src/templates/index.pug')
+    .pipe(pug(PUG_CONFIGURATION));
 
   const stylesStream = gulp
-    .src('src/index.scss')
+    .src('src/styles/index.scss')
     .pipe(sass())
     .pipe(autoprefixer())
     .pipe(cssnano());
@@ -197,10 +195,12 @@ gulp.task('watch', () => {
     server: 'dist',
   });
 
-  gulp.watch(
-    ['src/index.pug', 'src/index.scss'],
-    gulp.series('build:dev:reload'),
-  );
+  gulp
+    .watch(
+      ['src/templates/*.pug', 'src/styles/*.scss'],
+      gulp.series('build:dev'),
+    )
+    .on('change', browserSyncInstance.reload);
 });
 
 gulp.task(

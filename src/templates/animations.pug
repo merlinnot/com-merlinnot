@@ -1,0 +1,12 @@
+amp-animation(layout="nodisplay" trigger="visibility")
+  script(type="application/json").
+    {
+      "selector": "#background-image-container amp-img:not(.amp-notsupported)",
+      "duration": "3s",
+      "easing": "ease-in",
+      "fill": "forwards",
+      "keyframes": [
+        {"opacity": 0},
+        {"opacity": 0.85}
+      ]
+    }

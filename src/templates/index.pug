@@ -1,0 +1,21 @@
+doctype html
+html(⚡)
+  head
+    meta(charset="utf-8")
+    script(async src="https://cdn.ampproject.org/v0.js")
+    link(rel='canonical' href='.')
+    title Natan Sągol
+    meta(
+      name="viewport"
+      content="width=device-width,minimum-scale=1,initial-scale=1"
+    )
+    include amp-boilerplate.pug
+    style(amp-custom)
+    script(
+      async
+      custom-element="amp-animation"
+      src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"
+    )
+  body
+    include animations.pug
+    include background.pug

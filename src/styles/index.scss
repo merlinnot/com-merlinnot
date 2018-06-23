@@ -1,0 +1,10 @@
+@import 'background';
+@import 'constants';
+
+html {
+  background: $almost-black;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
