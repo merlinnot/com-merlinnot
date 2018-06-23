@@ -1,5 +1,7 @@
 # com-merlinnot
 
+[![CircleCI](https://circleci.com/gh/merlinnot/com-merlinnot.svg?style=svg)](https://circleci.com/gh/merlinnot/com-merlinnot)
+
 Personal website of the author, Natan Sągol. Created mostly to take the art
 of programming to perfection, taking great care of every single detail.
 
