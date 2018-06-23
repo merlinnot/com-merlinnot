@@ -10,12 +10,12 @@ references:
   restore_repo: &restore_repo
     restore_cache:
       keys:
-        - repo-{{ .Branch }}-{{ .Revision }}
-        - repo-{{ .Branch }}
-        - repo
+        - v1-repo-{{ .Branch }}-{{ .Revision }}
+        - v1-repo-{{ .Branch }}
+        - v1-repo
 
-  npm_cache_key: &npm_cache_key npm-{{ checksum "package-lock.json" }}
-  npm_backup_cache_key: &npm_backup_cache_key npm
+  npm_cache_key: &npm_cache_key v1-npm-{{ checksum "package-lock.json" }}
+  npm_backup_cache_key: &npm_backup_cache_key v1-npm
 
   restore_node_modules: &restore_node_modules
     restore_cache:
@@ -30,7 +30,7 @@ jobs:
       - *restore_repo
       - checkout
       - save_cache:
-          key: repo-{{ .Branch }}-{{ .Revision }}
+          key: v1-repo-{{ .Branch }}-{{ .Revision }}
           paths:
             - .
 
