@@ -144,6 +144,10 @@ gulp.task('build:images', () =>
     .pipe(gulp.dest('dist/images')),
 );
 
+gulp.task('build:manifest', () =>
+  gulp.src('src/manifest/*').pipe(gulp.dest('dist/manifest')),
+);
+
 gulp.task('build:dev', () => {
   const htmlStream = gulp
     .src('src/templates/index.pug')
@@ -185,7 +189,10 @@ gulp.task('build:production', () => {
 
 gulp.task(
   'build',
-  gulp.series('clean', gulp.parallel('build:images', 'build:production')),
+  gulp.series(
+    'clean',
+    gulp.parallel('build:images', 'build:manifest', 'build:production'),
+  ),
 );
 
 gulp.task('watch', () => {
@@ -205,7 +212,11 @@ gulp.task('watch', () => {
 
 gulp.task(
   'start:dev',
-  gulp.series('clean', gulp.parallel('build:images', 'build:dev'), 'watch'),
+  gulp.series(
+    'clean',
+    gulp.parallel('build:images', 'build:manifest', 'build:dev'),
+    'watch',
+  ),
 );
 
 gulp.task('default', gulp.series('start:dev'));
