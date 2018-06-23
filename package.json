@@ -1,7 +1,7 @@
 {
   "author": "Natan Sągol <m@merlinnot.com>",
   "bugs": {
-    "url": "https://github.com/merlinnot/surreal/issues"
+    "url": "https://github.com/merlinnot/com-merlinnot/issues"
   },
   "description": "The homepage of Natan Sągol",
   "devDependencies": {
@@ -23,7 +23,7 @@
     "prettier": "1.13.5",
     "through2": "2.0.3"
   },
-  "homepage": "https://github.com/merlinnot/surreal#readme",
+  "homepage": "https://github.com/merlinnot/com-merlinnot#readme",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -44,7 +44,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/merlinnot/surreal.git"
+    "url": "git+ssh://git@github.com/merlinnot/com-merlinnot.git"
   },
   "scripts": {
     "build": "gulp build",
