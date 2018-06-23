@@ -45,7 +45,7 @@ jobs:
       - save_cache:
           key: *npm_cache_key
           paths:
-            - /root/working_directory/node_modules
+            - node_modules
 
   format:
     <<: *container_config
