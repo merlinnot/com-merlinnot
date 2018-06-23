@@ -30,7 +30,7 @@ jobs:
       - *restore_repo
       - checkout
       - save_cache:
-          key: v1-repo-{{ .Branch }}-{{ .Revision }}
+          key: repo-{{ .Branch }}-{{ .Revision }}
           paths:
             - .
 
