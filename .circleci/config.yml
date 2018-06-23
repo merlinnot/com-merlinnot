@@ -1,21 +1,77 @@
 version: 2
-jobs:
-  build:
+
+references:
+  container_config: &container_config
     docker:
-      - image: circleci/node:10@sha256:077ee5098f0d713a25b8810164427aa4ec49fd617de73d61f58cec95bdfc05a5
-    working_directory: ~/repo
+      - image:
+          circleci/node:10@sha256:077ee5098f0d713a25b8810164427aa4ec49fd617de73d61f58cec95bdfc05a5
+    working_directory: ~/working_directory
+
+  restore_repo: &restore_repo
+    restore_cache:
+      keys:
+        - v1-repo-{{ .Branch }}-{{ .Revision }}
+        - v1-repo-{{ .Branch }}
+        - v1-repo
+
+  npm_cache_key: &npm_cache_key v1-npm-{{ checksum "package-lock.json" }}
+  npm_backup_cache_key: &npm_backup_cache_key v1-npm
+
+  restore_node_modules: &restore_node_modules
+    restore_cache:
+      keys:
+        - *npm_cache_key
+        - *npm_backup_cache_key
+
+jobs:
+  checkout:
+    <<: *container_config
     steps:
+      - *restore_repo
       - checkout
-      - restore_cache:
-          keys:
-          - dependency-cache-{{ checksum "package-lock.json" }}
+      - save_cache:
+          key: v1-repo-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - .
+
+  dependencies:
+    <<: *container_config
+    steps:
+      - *restore_repo
+      - *restore_node_modules
       - run:
-          name: dependencies
+          name: install node modules
           command: npm ci
       - save_cache:
+          key: *npm_cache_key
           paths:
             - node_modules
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: format
-          command: npm run format
+
+  format:
+    <<: *container_config
+    steps:
+      - *restore_repo
+      - *restore_node_modules
+      - run: npm run format
+
+  build:
+    <<: *container_config
+    steps:
+      - *restore_repo
+      - *restore_node_modules
+      - run: npm run build
+
+workflows:
+  version: 2
+  default:
+    jobs:
+      - checkout
+      - dependencies:
+          requires:
+            - checkout
+      - build:
+          requires:
+            - dependencies
+      - format:
+          requires:
+            - dependencies
