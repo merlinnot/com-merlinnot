@@ -7,12 +7,6 @@ references:
           circleci/node:10@sha256:077ee5098f0d713a25b8810164427aa4ec49fd617de73d61f58cec95bdfc05a5
     working_directory: ~/working_directory
 
-  workspace_root: &workspace_root /tmp/workspace
-
-  attach_workspace: &attach_workspace
-    attach_workspace:
-      at: *workspace_root
-
   restore_repo: &restore_repo
     restore_cache:
       keys:
