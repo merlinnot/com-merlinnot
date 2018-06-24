@@ -98,7 +98,7 @@ jobs:
       - run:
           name: Restore dist from workspace
           command: mv /tmp/workspace/dist dist
-      - run: npm run deploy -- --token=${FIREBASE_TOKEN}
+      - run: npm run deploy --silent -- --token=${FIREBASE_TOKEN}
 
 workflows:
   version: 2
