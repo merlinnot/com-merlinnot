@@ -7,6 +7,7 @@
   "devDependencies": {
     "browser-sync": "2.24.4",
     "del": "3.0.0",
+    "firebase-tools": "^3.19.0",
     "gulp": "4.0.0",
     "gulp-amphtml-validator": "1.0.2",
     "gulp-autoprefixer": "5.0.0",
@@ -14,7 +15,9 @@
     "gulp-inline-source": "3.2.0",
     "gulp-plumber": "1.2.0",
     "gulp-pug": "4.0.1",
+    "gulp-replace": "^1.0.0",
     "gulp-responsive": "2.10.0",
+    "gulp-rev": "^8.1.1",
     "gulp-sass": "4.0.1",
     "husky": "0.14.3",
     "lint-staged": "7.2.0",
@@ -50,6 +53,7 @@
     "format:fix": "prettier --write src/**/*.scss *.{js,md}",
     "format": "prettier --list-different **/*.scss *.{js,md}",
     "start:dev": "gulp start:dev",
+    "deploy": "firebase deploy --project com-merlinnot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "version": "0.0.0"
