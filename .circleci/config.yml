@@ -7,6 +7,12 @@ references:
           circleci/node:10@sha256:077ee5098f0d713a25b8810164427aa4ec49fd617de73d61f58cec95bdfc05a5
     working_directory: ~/working_directory
 
+  workspace_root: &workspace_root /tmp/workspace
+
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
   restore_repo: &restore_repo
     restore_cache:
       keys:
@@ -14,10 +20,20 @@ references:
         - v1-repo-{{ .Branch }}
         - v1-repo
 
-  npm_cache_key: &npm_cache_key v1-npm-{{ checksum "package-lock.json" }}
-  npm_backup_cache_key: &npm_backup_cache_key v1-npm
+  node_modules_cache_key:
+    &node_modules_cache_key v1-node_modules-{{ checksum "package-lock.json" }}
+  node_modules_backup_cache_key: &node_modules_backup_cache_key v1-node_modules
 
   restore_node_modules: &restore_node_modules
+    restore_cache:
+      keys:
+        - *node_modules_cache_key
+        - *node_modules_backup_cache_key
+
+  npm_cache_key: &npm_cache_key v2-npm-{{ checksum "package-lock.json" }}
+  npm_backup_cache_key: &npm_backup_cache_key v2-npm
+
+  restore_npm_cache: &restore_npm_cache
     restore_cache:
       keys:
         - *npm_cache_key
@@ -38,12 +54,16 @@ jobs:
     <<: *container_config
     steps:
       - *restore_repo
-      - *restore_node_modules
+      - *restore_npm_cache
       - run:
           name: install node modules
           command: npm ci
       - save_cache:
           key: *npm_cache_key
+          paths:
+            - ~/.npm
+      - save_cache:
+          key: *node_modules_cache_key
           paths:
             - node_modules
 
@@ -57,13 +77,27 @@ jobs:
   build:
     <<: *container_config
     steps:
+      - *attach_workspace
       - *restore_repo
       - *restore_node_modules
       - run: npm run build
-  
+      - run:
+          name: Move dist to workspace
+          command: mv dist /tmp/workspace/dist
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - dist
+
   deploy:
     <<: *container_config
     steps:
+      - *attach_workspace
+      - *restore_repo
+      - *restore_node_modules
+      - run:
+          name: Restore dist from workspace
+          command: mv /tmp/workspace/dist dist
       - run: npm run deploy -- --token=${FIREBASE_TOKEN}
 
 workflows:
@@ -82,6 +116,7 @@ workflows:
             - dependencies
       - deploy:
           requires:
+            - format
             - build
           filters:
             branches:
