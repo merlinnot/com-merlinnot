@@ -85,10 +85,10 @@ npm run format:fix
 
 ## Deployment
 
-Deployment is handled by an [automated service](https://www.netlify.com) and
-must not be performed manually. For each PR a staging environment is created and
-a corresponding link is added as a validation check. Staging environment can be
-used to play with a new version and to make sure it looks exactly as it should.
+Deployment is handled in an automated way and must not be performed manually.
+For each PR a staging environment is created and a corresponding link is added
+as a validation check. Staging environment can be used to play with a new
+version and to make sure it looks exactly as it should.
 
 ## Built with
 
@@ -118,11 +118,12 @@ used to play with a new version and to make sure it looks exactly as it should.
 ### Automation
 
 - [CircleCI](https://circleci.com)
+- [Netlify](https://www.netlify.com)
 - [Renovate](https://renovatebot.com)
 
 ### Delivery
 
-- [Netlify](https://www.netlify.com)
+- [Firebase](https://firebase.google.com)
 
 ## Versioning
 

@@ -60,6 +60,11 @@ jobs:
       - *restore_repo
       - *restore_node_modules
       - run: npm run build
+  
+  deploy:
+    <<: *container_config
+    steps:
+      - run: npm run deploy -- --token=${FIREBASE_TOKEN}
 
 workflows:
   version: 2
@@ -75,3 +80,9 @@ workflows:
       - format:
           requires:
             - dependencies
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
