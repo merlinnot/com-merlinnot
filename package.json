@@ -16,7 +16,7 @@
     "gulp-plumber": "1.2.0",
     "gulp-pug": "4.0.1",
     "gulp-replace": "1.0.0",
-    "gulp-responsive": "2.11.0",
+    "gulp-responsive": "3.0.1",
     "gulp-rev": "9.0.0",
     "gulp-sass": "4.0.2",
     "husky": "0.14.3",
